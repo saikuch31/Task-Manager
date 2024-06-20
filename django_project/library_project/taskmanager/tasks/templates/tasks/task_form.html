@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Form</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #ff6ec4, #7873f5); /* Pink to purple gradient */
+            /* Adjust other background properties as needed */
+            color: black; /* Text color */
+            height: 100vh; /* Ensure the gradient covers the entire viewport height */
+            margin: 0; /* Remove default margin */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-6 mx-auto">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="card-title">New task</h1>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="id_title">Title</label>
+                                {{ form.title }}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_description">Description</label>
+                                {{ form.description }}
+                            </div>
+                            <div class="form-group form-check">
+                                {{ form.completed }}
+                                <label class="form-check-label" for="id_completed">Finished</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <a href="{% url 'task_list' %}" class="btn btn-secondary">Cancel</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

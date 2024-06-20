@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #ff6ec4, #7873f5); /* Pink to purple gradient */
+            /* Adjust other background properties as needed */
+            color: black; /* Text color */
+            height: 100vh; /* Ensure the gradient covers the entire viewport height */
+            margin: 0; /* Remove default margin */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .empty-task {
+            color: #6c757d; /* Bootstrap secondary text color */
+            border: none; /* Remove border outline */
+        }
+            .completed {
+                text-decoration: underline;
+                color: #28a745; /* Bootstrap success color */
+            }
+            .not-completed {
+                color: #dc3545; /* Bootstrap danger color */
+            }
+
+        .container {
+            width: 100%;
+            max-width: 800px; /* Adjust maximum width of the content */
+            padding: 20px;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.8); /* Example card background color with transparency */
+            border: none;
+        }
+
+        .list-group-item {
+            background-color: rgba(255, 255, 255, 0.5); /* Example list item background color with transparency */
+            border: none;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title">Task List</h1>
+            </div>
+            <div class="card-body">
+                <a href="{% url 'task_create' %}" class="btn btn-primary mb-3">Create New Task</a>
+                <ul class="list-group">
+                    {% for task in tasks %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center {% if task.completed %}completed{% else %}not-completed{% endif %}">
+                        <div>
+                            <a href="{% url 'task_detail' task.pk %}" class="{% if task.completed %}completed{% else %}not-completed{% endif %}">{{ task.title }}</a>
+                            <small class="text-muted ml-2">{{ task.created_at|date:"F d, Y H:i" }}</small>
+                        </div>
+                        <div>
+                            <a href="{% url 'task_update' task.pk %}" class="btn btn-sm btn-secondary mr-2">Edit</a>
+                            <a href="{% url 'task_delete' task.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                        </div>
+                    </li>
+                    {% empty %}
+                    <li class="list-group-item empty-task">No tasks yet...</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
